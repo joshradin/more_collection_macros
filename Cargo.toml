@@ -1,7 +1,13 @@
 [package]
 name = "more_collection_macros"
+description = "Adds new macros to rust for creating collections"
 version = "0.1.0"
 edition = "2021"
+authors = ["Joshua Radin <jradin16@gmail.com>"]
+license-file = "LICENSE"
+repository = "https://github.com/joshradin/more_collection_macros"
+keywords = ["macros"]
+categories = ["development-tools"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
