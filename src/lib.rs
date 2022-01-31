@@ -122,7 +122,7 @@ macro_rules! map {
 }
 
 
-
+/// Creates a basic iter using the python-style list comprehension syntax
 #[macro_export]
 macro_rules! iter {
     ($ex:expr; $v:ident in $range:expr) => {
@@ -135,25 +135,14 @@ macro_rules! iter {
     };
 }
 
-#[macro_export]
+
 /// A wrapper around [iter](crate::iter) that collects into a vector
+#[macro_export]
 macro_rules! list {
     ($($tok:tt)*) => {
         std::iter::Iterator::collect::<std::vec::Vec<_>>($crate::iter!($($tok)*))
     };
 }
-
-
-
-
-
-pub mod prelude {
-    pub use super::{iter, list, map};
-    pub use std::collections::HashMap;
-}
-
-
-
 
 
 #[cfg(test)]
