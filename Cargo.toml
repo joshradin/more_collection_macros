@@ -5,6 +5,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Joshua Radin <jradin16@gmail.com>"]
 license-file = "LICENSE"
+readme = "README.md"
 repository = "https://github.com/joshradin/more_collection_macros"
 keywords = ["macros"]
 categories = ["development-tools"]
