@@ -88,7 +88,7 @@ macro_rules! map {
         $(,)?
     ) => {
         {
-            use $crate::prelude::*;
+            use std::collections::HashMap;
             let mut map: HashMap<_, _> = $map;
 
             $(
@@ -121,6 +121,24 @@ macro_rules! map {
     };
 }
 
+/// Creates a basic iter using the python-style list comprehension syntax
+#[macro_export]
+macro_rules! set {
+    () => {
+        std::collections::HashSet::new()
+    };
+    ($ty:ty) => {
+        std::collections::HashSet::<$ty>::new()
+    };
+    ($($key:expr),* $(,)?) => {
+        std::collections::HashSet::<_>::from_iter(vec![$($key),*])
+    };
+    ($($tok:tt)*) => {
+        std::iter::Iterator::collect::<std::collections::HashSet<_>>($crate::iter!($($tok)*))
+    };
+}
+
+
 
 /// Creates a basic iter using the python-style list comprehension syntax
 #[macro_export]
@@ -147,7 +165,7 @@ macro_rules! list {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashMap;
+    use std::collections::{HashMap, HashSet};
     use super::*;
 
     #[test]
@@ -227,5 +245,14 @@ mod tests {
             4 => 16,
         ];
         assert_eq!(map, expected);
+    }
+
+    #[test]
+    fn sets() {
+        assert_eq!(set!(), HashSet::<()>::new());
+        assert_eq!(set!(u32), HashSet::new());
+        assert_eq!(set!(1, 2, 3), HashSet::from_iter([1, 2, 2, 3, 3, 3]));
+        assert_eq!(set!(x; x in 0..3), set!(0, 1, 2));
+        assert_eq!(set!(x; x in 0..4; if x % 2 == 1), set!(1, 3));
     }
 }
